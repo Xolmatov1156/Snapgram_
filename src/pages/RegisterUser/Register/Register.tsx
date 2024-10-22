@@ -15,7 +15,7 @@ const Register = () => {
     };
     console.log(data);
     createUser(data)
-      .then((res) => {
+      .then(() => {
         navigate('/')
       })
       .catch((err) => console.log(err));

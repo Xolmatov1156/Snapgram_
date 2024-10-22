@@ -24,8 +24,7 @@ const ProfilPage = () => {
       </div>
     );
   }
-  console.log(posts);
-
+  
   return (
     <section className="text-white h-screen px-[60px] py-[80px] overflow-y-auto bg-black">
       {userInfo ? (

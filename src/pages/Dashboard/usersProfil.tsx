@@ -6,7 +6,7 @@ import {
   useUnfollowingMutation,
 } from "../../redux/api/users-api";
 import { useEffect, useState } from "react";
-import { ThreeDots, Triangle } from "react-loader-spinner";
+import { Triangle } from "react-loader-spinner";
 import { imageFileTypes } from "../Dashboard/Home/Home";
 import NoImg from "../../../src/assets/user.svg";
 function UsersProfile() {
