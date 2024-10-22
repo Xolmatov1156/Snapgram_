@@ -4,7 +4,7 @@ import UserName from '../../src/assets/user.svg';
 import { useNavigate } from "react-router-dom";
 
 const Creator = () => {
-  const { data: users } = useGetAllUserQuery({limit:10});
+  const { data: users } = useGetAllUserQuery({});
   const [followUser] = useFollowMutation();
   const navigate = useNavigate();
 

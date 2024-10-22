@@ -1,5 +1,4 @@
 import UserName from '../../../assets/user.svg';
-import Creators from '../../../components/Creators'
 import {
   useGetAllUserQuery,
   useGetFeedQuery,
@@ -10,6 +9,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import Creator from '../../../components/Creators';
+import { useNavigate } from 'react-router-dom';
 
 export const imageFileTypes = [
   ".png",
@@ -44,7 +44,10 @@ function Home() {
   const followedUsers = currentUserData?.following?.map((followingUser: any) =>
     allUser?.find((user: any) => user.username === followingUser.username)
   );
-  console.log(feeds)
+  const handleClick = (username: string) => {
+    navigate(`/users/${username}`);
+  };
+  const navigate = useNavigate();
 
   const UsersCard = (): JSX.Element => {
     return (
@@ -53,6 +56,7 @@ function Home() {
           ?.filter((user: any) => user)
           .map((user: any, index: number) => (
             <div
+            onClick={() => handleClick(user.username)}
               key={index}
               className="text-center flex flex-col min-w-[86px] items-center"
             >

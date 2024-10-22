@@ -1,12 +1,15 @@
 import { useParams } from "react-router-dom";
-import { useGetAllPostByUserQuery, useGetUserQuery } from "../../redux/api/users-api";
+import {
+  useGetAllPostByUserQuery,
+  useGetUserQuery,
+} from "../../redux/api/users-api";
 import NoImg from "../../../src/assets/user.svg";
 import { Triangle } from "react-loader-spinner";
 
 const ProfilPage = () => {
   const { username } = useParams<{ username: string }>();
   const { data: userInfo, isLoading } = useGetUserQuery(username);
-  const {data:posts} = useGetAllPostByUserQuery(username)
+  const { data: posts } = useGetAllPostByUserQuery(username);
 
   if (isLoading) {
     return (
@@ -40,7 +43,7 @@ const ProfilPage = () => {
                   {userInfo.username}
                 </h1>
               </div>
-              <p className="text-lg text-light-300">@{userInfo.fullName}</p>
+              <p className="text-lg text-light-300 text-gray-500">@{userInfo.fullName}</p>
               <div className="mt-[22px] flex items-center gap-10">
                 <div className="flex items-center gap-2">
                   <p className="text-[20px] text-purple font-bold tracking-[-1px]">
@@ -68,20 +71,39 @@ const ProfilPage = () => {
                 </div>
               </div>
               <p className="mt-[30px]">
-                {userInfo.bio || "This user has not added a bio yet."}
+                {userInfo.bio || (
+                  <>
+                    For Developers, By Developers <br />
+                    💻 Web Development & Coding <br />
+                    🎥 YouTube - JavaScript Mastery <br />
+                    ✉️ Business Inquiries - Email or DM
+                  </>
+                )}
               </p>
             </div>
           </header>
 
-          <div className="mt-[68px] grid grid-cols-12 gap-4">
+          <div className="mt-[68px] flex flex-wrap gap-[30px]">
             {posts?.length ? (
               posts?.map((item: any, inx: number) => {
-                let firstPostType = item.content[0]?.type
-                let firstPostUrl = item.content[0]?.url
-                if(firstPostType === 'IMAGE'){
-                    return <img src={firstPostUrl} alt="" className="w-[330px] h-[315px]"/>
-                }else if(firstPostType === 'VIDEO'){
-                    return <video src={firstPostUrl}></video>
+                let firstPostType = item.content[0]?.type;
+                let firstPostUrl = item.content[0]?.url;
+                if (firstPostType === "IMAGE") {
+                  return (
+                    <img
+                      src={firstPostUrl}
+                      alt=""
+                      className="w-[330px] rounded-[15px] object-cover h-[315px]"
+                    />
+                  );
+                } else if (firstPostType === "VIDEO") {
+                  return (
+                    <video
+                      src={firstPostUrl}
+                      width={330}
+                      className="w-[330px] rounded-[15px] h-[315px] object-cover"
+                    ></video>
+                  );
                 }
               })
             ) : (
