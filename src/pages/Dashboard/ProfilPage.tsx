@@ -24,7 +24,7 @@ const ProfilPage = () => {
       </div>
     );
   }
-  
+
   return (
     <section className="text-white h-screen px-[60px] py-[80px] overflow-y-auto bg-black">
       {userInfo ? (
@@ -84,7 +84,7 @@ const ProfilPage = () => {
 
           <div className="mt-[68px] flex flex-wrap gap-[30px]">
             {posts?.length ? (
-              posts?.map((item: any, inx: number) => {
+              posts?.map((item: any) => {
                 let firstPostType = item.content[0]?.type;
                 let firstPostUrl = item.content[0]?.url;
                 if (firstPostType === "IMAGE") {
