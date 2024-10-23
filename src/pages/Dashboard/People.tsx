@@ -2,6 +2,7 @@ import { useFollowMutation, useGetUserQuery, useGetAllUserQuery } from "../../re
 import { User } from "../../types";
 import UserName from '../../../src/assets/user.svg';
 import { AllUsers } from "../../assets/Icons";
+import { useNavigate } from "react-router-dom";
 
 const People = () => {
   const { data: users } = useGetAllUserQuery({});
@@ -10,7 +11,10 @@ const People = () => {
   const handleFollow = (username: string) => {
     followUser(username);
   };
-  
+  const handleClick = (username: string) => {
+    navigate(`/users/${username}`);
+  };
+  const navigate = useNavigate();
 
   const currentUserUsername = window.localStorage.getItem("userData")
     ? JSON.parse(window.localStorage.getItem("userData") as string).username
@@ -25,6 +29,7 @@ const People = () => {
   const userItems: JSX.Element[] = users?.map((user: User): JSX.Element => (
     <div key={user._id} className=" ">
       <div className="p-[20px] w-[303px] h-[319px] border border-gray-500 rounded-xl">
+        <div onClick={() => handleClick(user.username)} className="cursor-pointer">
         <img
           onError={handleImageError}
           src={import.meta.env.VITE_API_URL + user.photo}
@@ -33,6 +38,7 @@ const People = () => {
         />
         <h3 className="mt-[10px] line-clamp-1 font-semibold text-[24px]">{user.fullName}</h3>
         <h3 className="mt-[10px] line-clamp-1 font-semibold text-gray-400">@{user.username}</h3>
+        </div>
         {currentUserInfo && user.followers?.some((follower: any) => follower._id === currentUserInfo._id) ? (
           <button
             onClick={() => handleFollow("unfollow/" + user.username)}

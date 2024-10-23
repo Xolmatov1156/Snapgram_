@@ -34,6 +34,7 @@ function Home() {
     };
     return date.toLocaleString("en-US", options).replace(",", " at");
   };
+  
 
   const currentUserUsername = window.localStorage.getItem("userData")
     ? JSON.parse(window.localStorage.getItem("userData") as string).username
@@ -59,7 +60,7 @@ function Home() {
             <div
             onClick={() => handleClick(user.username)}
               key={index}
-              className="text-center flex flex-col min-w-[86px] items-center"
+              className="text-center flex flex-col min-w-[86px] items-center cursor-pointer"
             >
               <img
                 src={import.meta.env.VITE_API_URL + user.photo}
