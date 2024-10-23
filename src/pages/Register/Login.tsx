@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
-import Google from '../../../assets/google.svg'
-import Logo from '../../../assets/logo.svg'
-import { useLoginUserMutation } from '../../../redux/api/users-api';
+import Google from '../../assets/google.svg'
+import Logo from '../../assets/logo.svg'
+import { useLoginUserMutation } from '../../redux/api/users-api';
 import { useContext } from 'react';
-import { Context } from '../../../context/MainContext';
+import { Context } from '../../context/MainContext';
 const Login = () => {
   const navigate = useNavigate();
   const context = useContext(Context)
@@ -19,7 +19,6 @@ const Login = () => {
   
     try {
       const res = await loginUser(data).unwrap();
-      console.log(res);
       window.localStorage.setItem('accessToken', res?.accessToken)
       window.localStorage.setItem('refreshToken', res?.refreshToken)
       context?.setToken(true);

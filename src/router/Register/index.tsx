@@ -3,9 +3,9 @@ import { useRoutes } from "react-router-dom";
 import { SuspenseComponent as Suspense } from "../../utils";
 
 const Login: LazyExoticComponent<any> = lazy(() => new Promise(resolve => {
-    setTimeout(() => resolve(import('../../pages/RegisterUser/Login/Login')), 1000);
+    setTimeout(() => resolve(import('../../pages/Register/Login')), 1000);
   }));
-const Register : LazyExoticComponent<any> = lazy(() => import('../../pages/RegisterUser/Register/Register'))
+const Register : LazyExoticComponent<any> = lazy(() => import('../../pages/Register/Register'))
 
 const RegisterRoutes = () => {
     return useRoutes ([

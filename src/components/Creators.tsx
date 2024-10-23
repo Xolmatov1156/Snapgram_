@@ -62,7 +62,7 @@ const Creator = () => {
   return (
     <div className="col-span-4 bg-black h-screen flex flex-wrap gap-[20px] pl-[20px] overflow-y-auto text-white text-center py-[40px]">
       <h2 className="text-[24px] w-full text-start font-semibold">Top Creators</h2>
-      {userItems}
+      {userItems} 
     </div>
   );
 };

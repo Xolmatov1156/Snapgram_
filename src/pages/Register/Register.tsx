@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
-import Google from "../../../assets/google.svg";
-import { useCreateUserMutation } from "../../../redux/api/users-api";
+import Google from "../../assets/google.svg";
+import { useCreateUserMutation } from "../../redux/api/users-api";
 const Register = () => {
   const [createUser] = useCreateUserMutation();
   const navigate = useNavigate();
@@ -13,9 +13,11 @@ const Register = () => {
       username: target.get("username"),
       password: target.get("password"),
     };
-    console.log(data);
+    window.localStorage.setItem('userData', JSON.stringify(data))
     createUser(data)
-      .then(() => {
+      .then((res) => {
+        window.localStorage.setItem('accessToken', res?.data?.accessToken)
+        window.localStorage.setItem('refreshToken', res?.data?.refreshToken)
         navigate('/')
       })
       .catch((err) => console.log(err));

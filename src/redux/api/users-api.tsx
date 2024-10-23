@@ -59,20 +59,6 @@ export const productApi = api.injectEndpoints({
       }),
       invalidatesTags: [{ type: "User" }]
     }),
-    following: build.mutation({
-      query: (username) => ({
-        url: `/api/user/follow${username}`,
-        method: "POST",
-      }),
-      invalidatesTags: ["User"],
-    }),
-    unfollowing: build.mutation({
-      query: (username) => ({
-        url: `/api/user/unfollow${username}`,
-        method: "POST",
-      }),
-      invalidatesTags: ["User"],
-    }),
     getAllPostByUser: build.query({
       query: (username) => ({
         url: `/api/post/${username}`
@@ -92,6 +78,4 @@ export const {
   useCreatePostMutation,
   useUploadFilesMutation,
   useGetAllPostByUserQuery,
-  useFollowingMutation,
-  useUnfollowingMutation
 } = productApi;

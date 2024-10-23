@@ -2,8 +2,7 @@ import { useParams } from "react-router-dom";
 import {
   useGetAllPostByUserQuery,
   useGetUserQuery,
-  useFollowingMutation,
-  useUnfollowingMutation,
+  useFollowMutation,
 } from "../../redux/api/users-api";
 import { useEffect, useState } from "react";
 import { Triangle } from "react-loader-spinner";
@@ -13,13 +12,15 @@ function UsersProfile() {
   const videoFileTypes = [".mp4", ".webm", ".ogg"];
   const [profile, setProfile] = useState<any>();
   const [posts, setPosts] = useState<any[]>([]);
-  const [unfollow] = useUnfollowingMutation();
-  const [follow] = useFollowingMutation();
   const [currentUserInfo, setCurrentUserInfo] = useState<any>();
+  const [followUser] = useFollowMutation();
 
   const currentUserUsername = window.localStorage.getItem("userData")
     ? JSON.parse(window.localStorage.getItem("userData") as string).username
     : null;
+  const handleFollow = (username: string) => {
+    followUser(username);
+  };
 
   const { username } = useParams();
   const { data } = useGetUserQuery(username);
@@ -55,36 +56,24 @@ function UsersProfile() {
                 <h1 className="font-semibold text-4xl mb-[6.5px]">
                   {profile.fullName}
                 </h1>
-                {profile &&
-                  currentUserInfo &&
-                  profile._id !== currentUserInfo._id && (
-                    <button
-                      className={`${
-                        currentUserInfo.following.some(
-                          (user: any) => user._id === profile._id
-                        )
-                          ? "bg-red-500 hover:bg-red-600"
-                          : "bg-[#877EFF]"
-                      } text-white font-semibold py-2 px-4 rounded`}
-                      onClick={() => {
-                        if (
-                          currentUserInfo.following.some(
-                            (user: any) => user._id === profile._id
-                          )
-                        ) {
-                          unfollow(profile.username);
-                        } else {
-                          follow(profile.username);
-                        }
-                      }}
-                    >
-                      {currentUserInfo.following.some(
-                        (user: any) => user._id === profile._id
-                      )
-                        ? "Unfollow"
-                        : "Follow"}
-                    </button>
-                  )}
+                {currentUserInfo &&
+                profile.followers?.some(
+                  (follower: any) => follower._id === currentUserInfo._id
+                ) ? (
+                  <button
+                    onClick={() => handleFollow("unfollow/" + profile.username)}
+                    className="bg-[red] text-white w-[74px] py-[5px] mt-[18px] rounded-lg"
+                  >
+                    Unfollow
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleFollow("follow/" + profile.username)}
+                    className="bg-[#877EFF] text-white w-[74px] py-[5px] mt-[18px] rounded-lg"
+                  >
+                    Follow
+                  </button>
+                )}
               </div>
               <p className="text-lg text-light-300">@{profile.username}</p>
               <div className="mt-[22px] flex items-center gap-10">

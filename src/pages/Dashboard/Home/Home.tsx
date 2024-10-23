@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import Creator from '../../../components/Creators';
 import { useNavigate } from 'react-router-dom';
+import { LikeIcon } from '../../../assets/Icons';
 
 export const imageFileTypes = [
   ".png",
@@ -139,7 +140,7 @@ function Home() {
                               <SwiperSlide key={contentIndex}>
                                 <video
                                   controls
-                                  className="w-full h-[500px] object-contain"
+                                  className="w-full h-[500px] object-cover"
                                   src={content?.url}
                                 ></video>
                               </SwiperSlide>
@@ -148,7 +149,7 @@ function Home() {
                             return (
                               <SwiperSlide key={contentIndex}>
                                 <img
-                                  className="w-full h-[500px] object-contain"
+                                  className="w-full h-[500px] object-cover"
                                   src={content?.url}
                                 />
                               </SwiperSlide>
@@ -157,6 +158,7 @@ function Home() {
                         }
                       )}
                   </Swiper>
+              <div className=' pt-[10px]'><LikeIcon/></div>
                 </div>
               ))
             ) : (
