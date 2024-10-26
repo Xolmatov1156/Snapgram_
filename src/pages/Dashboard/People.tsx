@@ -11,17 +11,17 @@ const People = () => {
   const [followUser] = useFollowMutation();
   const navigate = useNavigate();
 
-  const handleFollow = (username: string) => {
+  const handleFollow = (username: string | undefined) => {
     followUser(username);
   };
   
-  const handleClick = (username: string) => {
+  const handleClick = (username: string | undefined) => {
     navigate(`/users/${username}`);
   };
 
   const currentUserUsername = window.localStorage.getItem("userData")
     ? JSON.parse(window.localStorage.getItem("userData") as string).username
-    : null;
+    : undefined;
 
   const { data: currentUserInfo } = useGetUserQuery(currentUserUsername);
 
