@@ -45,7 +45,7 @@ const Creator = () => {
           >
             <img
               onError={handleImageError}
-              src={user.photo}
+              src={user.photo || UserName}
               alt={user.fullName}
               className="w-[54px] h-[54px] rounded-full mx-auto bg-white"
             />

@@ -40,7 +40,7 @@ const People = () => {
         <div onClick={() => handleClick(user.username)} className="cursor-pointer">
           <img
             onError={handleImageError}
-            src={user?.photo}
+            src={user?.photo || UserName}
             alt={user.fullName}
             className="w-[90px] h-[90px] rounded-full mx-auto bg-white mt-[40px]"
           />
