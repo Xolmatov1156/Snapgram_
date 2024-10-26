@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import Logo from "../assets/logo.svg";
+import Logo from "../assets/logoo.svg";
 import { useGetUserQuery } from "../redux/api/users-api";
 import {
   HomeIcon,
@@ -13,6 +13,8 @@ import {
   LogOutIcon,
   SettignsIcon,
 } from "../assets/Icons";
+import Skeleton from "@mui/material/Skeleton";
+import NoImg from "../../src/assets/user.svg";
 
 const LeftSidebar = () => {
   const [showModal, setShowModal] = useState(false);
@@ -21,7 +23,7 @@ const LeftSidebar = () => {
   const currentUserUsername = window.localStorage.getItem("userData")
     ? JSON.parse(window.localStorage.getItem("userData") as string).username
     : null;
-  const { data: currentUserInfo } = useGetUserQuery(currentUserUsername);
+  const { data: currentUserInfo, isLoading } = useGetUserQuery(currentUserUsername);
 
   const handleDelete = () => {
     window.localStorage.clear();
@@ -38,23 +40,36 @@ const LeftSidebar = () => {
           <img src={Logo} alt="logo" />
           <h2 className="text-[28px] font-semibold">Snapgram</h2>
         </Link>
+
         <div className="flex gap-[10px] items-center mt-[44px]">
-          <img
-            className="rounded-full bg-white"
-            src={import.meta.env.VITE_API_URL + currentUserInfo?.photo}
-            alt="photo"
-            width={56}
-            height={56}
-          />
-          <div className="flex flex-col">
-            <Link to={`/profile/${currentUserInfo?.username}`}>
-              <p className="capitalize">{currentUserInfo?.username}</p>
-              <p className="capitalize text-gray-500 text-[14px]">
-                @{currentUserInfo?.fullName}
-              </p>
-            </Link>
-          </div>
+          {isLoading ? (
+            <>
+              <Skeleton variant="circular" width={56} height={56} sx={{ bgcolor: "grey.800", color: "grey.700" }}/>
+              <div className="flex flex-col">
+                <Skeleton variant="text" width={100} height={20} sx={{ bgcolor: "grey.800", color: "grey.700" }}/>
+                <Skeleton variant="text" width={80} height={20} sx={{ bgcolor: "grey.800", color: "grey.700" }}/>
+              </div>
+            </>
+          ) : (
+            <>
+              <img
+                className="rounded-full bg-white w-[56px] h-[56px]"
+                src={currentUserInfo?.photo}
+                onError={(e) => (e.currentTarget.src = NoImg)}
+                alt="photo"
+              />
+              <div className="flex flex-col">
+                <Link to={`/profile/${currentUserInfo?.username}`}>
+                  <p className="capitalize">{currentUserInfo?.username}</p>
+                  <p className="capitalize text-gray-500 text-[14px]">
+                    @{currentUserInfo?.fullName}
+                  </p>
+                </Link>
+              </div>
+            </>
+          )}
         </div>
+
         <div className="mt-[44px] flex flex-col gap-[24px]">
           <NavLink
             to={"/"}
@@ -99,21 +114,23 @@ const LeftSidebar = () => {
             <CreatePostIcon /> Create Post
           </NavLink>
         </div>
+
         <div className="mt-[108px]">
           <div
             onClick={() => setShowModal(true)}
             className="cursor-pointer flex w-full p-[15px] gap-[18px] text-white rounded-lg"
           >
             <LogOutIcon />
-            Logout
+            Log out
           </div>
+
           {showModal && (
-            <div className="fixed inset-0 z-50  bg-gray-600 bg-opacity-50 flex justify-center items-center">
+            <div className="fixed inset-0 z-50 bg-gray-600 bg-opacity-50 flex justify-center items-center">
               <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-                <h2 className="text-xl font-bold text-black mb-4">Confirm Logout</h2>
-                <p className="mb-6 text-black">
-                  Are you sure want to log out?
-                </p>
+                <h2 className="text-xl font-bold text-black mb-4">
+                  Confirm Logout
+                </h2>
+                <p className="mb-6 text-black">Are you sure you want to log out?</p>
                 <div className="flex justify-end space-x-4">
                   <button
                     onClick={() => setShowModal(false)}
@@ -125,15 +142,14 @@ const LeftSidebar = () => {
                     onClick={handleDelete}
                     className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
                   >
-                    Delete
+                    Log out
                   </button>
                 </div>
               </div>
             </div>
           )}
-          <div
-            className="cursor-pointer flex w-full p-[15px] gap-[18px] text-white rounded-lg"
-          >
+
+          <div className="cursor-pointer flex w-full p-[15px] gap-[18px] text-white rounded-lg">
             <SettignsIcon />
             Settings
           </div>

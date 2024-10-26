@@ -7,9 +7,9 @@ import People from "../../pages/Dashboard/People";
 import Reels from "../../pages/Dashboard/Reels";
 import Saved from "../../pages/Dashboard/Saved";
 import LeftSidebar from "../../components/LeftSidebar";
-import UsersProfile from "../../pages/Dashboard/usersProfil";
+import UsersProfile from "../../pages/Dashboard/UsersProfil";
 import ProfilPage from "../../pages/Dashboard/ProfilPage";
-
+import EditProfile from "../../pages/Dashboard/EditProfile";
 function DashboardRoutes() {
   return (
     <main className="grid grid-cols-12">
@@ -26,6 +26,7 @@ function DashboardRoutes() {
           <Route path="/chats" element={<Chats />} />
           <Route path="/users/:username" element={<UsersProfile />} />
           <Route path="/profile/:username" element={<ProfilPage />} />
+          <Route path="/edit-profile/:username" element={<EditProfile/>} />
         </Routes>
       </div>
     </main>

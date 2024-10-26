@@ -1,8 +1,8 @@
+import NotFound from "../../components/NotFound";
+
 const Chats = () => {
   return (
-    <div className="flex">
-      <div>Chats</div>
-    </div>
+    <NotFound/>
   );
 };
 

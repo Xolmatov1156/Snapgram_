@@ -1,9 +1,8 @@
+import NotFound from "../../components/NotFound"
 
 const Explore = () => {
   return (
-    <div className='flex'>
-    <div>Explore</div>
-    </div>
+    <NotFound/>
   )
 }
 

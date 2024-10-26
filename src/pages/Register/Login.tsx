@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import Google from '../../assets/google.svg';
-import Logo from '../../assets/logo.svg';
+import Logo from '../../assets/logoo.svg';
 import { useLoginUserMutation } from '../../redux/api/users-api';
 import { Context } from '../../context/MainContext';
 import { ClipLoader } from 'react-spinners';
@@ -10,11 +10,11 @@ const Login = () => {
   const navigate = useNavigate();
   const context = useContext(Context);
   const [loginUser] = useLoginUserMutation();
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true); // Set loading to true when the form is submitted
+    setLoading(true); 
     const target = new FormData(e.target as HTMLFormElement);
     const data = {
       username: target.get('username'),
@@ -32,7 +32,7 @@ const Login = () => {
     } catch (error) {
       console.error('Login failed:', error);
     } finally {
-      setLoading(false); // Set loading back to false after the request completes
+      setLoading(false);
     }
   };
 

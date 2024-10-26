@@ -1,15 +1,13 @@
 import { useParams } from "react-router-dom";
 import {
-  useGetAllPostByUserQuery,
   useGetUserQuery,
   useFollowMutation,
 } from "../../redux/api/users-api";
+import {useGetAllPostByUserQuery} from '../../redux/api/post-api'
 import { useEffect, useState } from "react";
 import { Triangle } from "react-loader-spinner";
-import { imageFileTypes } from "../Dashboard/Home/Home";
-import NoImg from "../../../src/assets/user.svg";
+import NoImg from "../../../src/assets/user.svg"
 function UsersProfile() {
-  const videoFileTypes = [".mp4", ".webm", ".ogg"];
   const [profile, setProfile] = useState<any>();
   const [posts, setPosts] = useState<any[]>([]);
   const [currentUserInfo, setCurrentUserInfo] = useState<any>();
@@ -26,6 +24,7 @@ function UsersProfile() {
   const { data } = useGetUserQuery(username);
   const { data: userData } = useGetUserQuery(currentUserUsername);
   const { data: postByUser } = useGetAllPostByUserQuery(username);
+  
 
   useEffect(() => {
     if (data && postByUser && userData) {
@@ -46,8 +45,8 @@ function UsersProfile() {
         <main>
           <header className="flex gap-[30px]">
             <img
-              className="w-[150px] h-[150px] rounded-full object-cover"
-              src={import.meta.env.VITE_API_URL + profile.photo}
+              className="w-[150px] h-[150px] rounded-full object-cover bg-white"
+              src={profile.photo}
               onError={(e) => (e.currentTarget.src = NoImg)}
               alt={profile.fullName}
             />
@@ -110,62 +109,34 @@ function UsersProfile() {
               </p>
             </div>
           </header>
-          <div className="mt-[68px] grid grid-cols-12 gap-4">
-            {posts.length ? (
-              posts.map((item: any, inx: number) => {
-                const firstPost: string = item?.content[0];
-
-                return (
-                  <div
-                    key={inx}
-                    className="col-span-4 rounded-2xl overflow-hidden relative"
-                  >
-                    {item.content.length > 1 && (
-                      <span className="absolute top-6 right-[14px]"></span>
-                    )}
-
-                    <div
-                      className="absolute flex flex-col justify-end top-0 left-0 right-0 bottom-0"
-                      style={{
-                        background: `linear-gradient(180deg, rgba(23, 23, 23, 0) 0%, #171717 109.15%)`,
-                      }}
-                    >
-                      <div className="p-4">
-                        <h1 className="font-bold">{item.caption}</h1>
-                        <h1 className="italic text-xs text-gray-500">
-                          {item.content_alt}
-                        </h1>
-                      </div>
-                    </div>
-                    {imageFileTypes.some(
-                      (type: string) =>
-                        typeof firstPost === "string" &&
-                        firstPost?.includes(type)
-                    ) && (
-                      <img
-                        className="w-full h-[315px] object-cover"
-                        src={firstPost}
-                        alt="Post content"
-                      />
-                    )}
-
-                    {videoFileTypes.some(
-                      (type: string) =>
-                        typeof firstPost === "string" &&
-                        firstPost?.includes(type)
-                    ) && (
-                      <video
-                        className="w-full h-[315px] object-cover"
-                        src={firstPost}
-                        controls
-                      ></video>
-                    )}
-                  </div>
-                );
+          <div className="mt-[68px] flex flex-wrap gap-[30px]">
+          {posts?.length ? (
+              posts?.map((item: any) => {
+                let firstPostType = item.content[0]?.type;
+                let firstPostUrl = item.content[0]?.url;
+                if (firstPostType === "IMAGE") {
+                  return (
+                    <img
+                    key={item._id}
+                      src={firstPostUrl}
+                      alt=""
+                      className="w-[330px] rounded-[15px] object-cover h-[315px]"
+                    />
+                  );
+                } else if (firstPostType === "VIDEO") {
+                  return (
+                    <video
+                    key={item._id}
+                      src={firstPostUrl}
+                      width={330}
+                      className="w-[330px] rounded-[15px] h-[315px] object-cover"
+                    ></video>
+                  );
+                }
               })
             ) : (
               <p className="text-center col-span-12 text-3xl font-semibold opacity-70 capitalize">
-                No post yet...
+                No posts yet...
               </p>
             )}
           </div>

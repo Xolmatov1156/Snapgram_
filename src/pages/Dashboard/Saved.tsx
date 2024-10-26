@@ -1,9 +1,8 @@
+import NotFound from "../../components/NotFound"
 
 const Saved = () => {
   return (
-    <div className='flex'>
-    <div>Saved</div>
-    </div>
+    <NotFound/>
   )
 }
 

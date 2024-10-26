@@ -1,16 +1,16 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
-  useGetAllPostByUserQuery,
   useGetUserQuery,
 } from "../../redux/api/users-api";
+import {useGetAllPostByUserQuery} from "../../redux/api/post-api";
 import NoImg from "../../../src/assets/user.svg";
 import { Triangle } from "react-loader-spinner";
+import { EditIcon } from "../../assets/Icons";
 
 const ProfilPage = () => {
   const { username } = useParams<{ username: string }>();
   const { data: userInfo, isLoading } = useGetUserQuery(username);
   const { data: posts } = useGetAllPostByUserQuery(username);
-
   if (isLoading) {
     return (
       <div className="flex h-full w-full items-center justify-center">
@@ -32,7 +32,7 @@ const ProfilPage = () => {
           <header className="flex gap-[30px]">
             <img
               className="w-[150px] h-[150px] rounded-full object-cover bg-white"
-              src={import.meta.env.VITE_API_URL + userInfo.photo}
+              src={userInfo.photo}
               onError={(e) => (e.currentTarget.src = NoImg)}
               alt={userInfo.fullName}
             />
@@ -41,10 +41,14 @@ const ProfilPage = () => {
                 <h1 className="font-semibold text-4xl mb-[6.5px] capitalize">
                   {userInfo.username}
                 </h1>
+                <Link to={`/edit-profile/${userInfo.username}`} className="flex w-[137px] py-[10px] bg-[#101012] items-center gap-[5px] justify-center rounded-md">
+                <EditIcon/>
+                <p>Edit Profile</p>
+                </Link>
               </div>
               <p className="text-lg text-light-300 text-gray-500">@{userInfo.fullName}</p>
               <div className="mt-[22px] flex items-center gap-10">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 ">
                   <p className="text-[20px] text-purple font-bold tracking-[-1px]">
                     {userInfo.posts?.length || 0}
                   </p>
@@ -90,6 +94,7 @@ const ProfilPage = () => {
                 if (firstPostType === "IMAGE") {
                   return (
                     <img
+                    key={item._id}
                       src={firstPostUrl}
                       alt=""
                       className="w-[330px] rounded-[15px] object-cover h-[315px]"
@@ -98,6 +103,7 @@ const ProfilPage = () => {
                 } else if (firstPostType === "VIDEO") {
                   return (
                     <video
+                    key={item._id}
                       src={firstPostUrl}
                       width={330}
                       className="w-[330px] rounded-[15px] h-[315px] object-cover"

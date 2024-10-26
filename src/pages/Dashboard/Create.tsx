@@ -8,7 +8,7 @@ import {
 import {
   useCreatePostMutation,
   useUploadFilesMutation,
-} from "../../redux/api/users-api";
+} from "../../redux/api/post-api";
 import { useNavigate } from "react-router-dom";
 import { imageFileTypes } from "../Dashboard/Home/Home";
 
@@ -43,11 +43,9 @@ function CreatePost() {
           const type = isImage ? "IMAGE" : "VIDEO";
           return { url, type };
         });
-        console.log(content)
         setSaveImages(content);
       });
   }
-  console.log(saveImages);
 
   function handleFormSubmit(e: FormEvent) {
     e.preventDefault();

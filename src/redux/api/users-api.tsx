@@ -1,6 +1,6 @@
 import { api } from "./index";
 
-export const productApi = api.injectEndpoints({
+export const userApi = api.injectEndpoints({
   endpoints: (build) => ({
     createUser: build.mutation({
       query: (body) => ({
@@ -37,34 +37,21 @@ export const productApi = api.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
-    getFeed: build.query({
-      query: () => ({
-        url: "/api/user/feed?limit=3000",
+    getCurrentUserDatas: build.query({
+      query:() => ({
+        url: '/api/user/profile',
       }),
-      providesTags: ["User"],
+      providesTags: [{ type: 'User' }],
     }),
-    createPost: build.mutation({
-      query: (body) => ({
-        url: "/api/post",
-        method: "POST",
-        body,
-      }),
-      invalidatesTags: [{ type: "User" }],
-    }),
-    uploadFiles: build.mutation({
-      query: (body) => ({
-        url: '/api/upload/files',
-        method: "POST",
+    updateUser: build.mutation({
+      query:(body) => ({
+        url:'/api/user/profile',
+        method: "PUT",
         body
       }),
-      invalidatesTags: [{ type: "User" }]
+      invalidatesTags: [{type: 'User'}]
     }),
-    getAllPostByUser: build.query({
-      query: (username) => ({
-        url: `/api/post/${username}`
-      }),
-      providesTags: ["User"],
-    })
+
   }),
 });
 
@@ -74,8 +61,6 @@ export const {
   useFollowMutation,
   useLoginUserMutation,
   useGetUserQuery,
-  useGetFeedQuery,
-  useCreatePostMutation,
-  useUploadFilesMutation,
-  useGetAllPostByUserQuery,
-} = productApi;
+  useGetCurrentUserDatasQuery,
+  useUpdateUserMutation
+} = userApi;
