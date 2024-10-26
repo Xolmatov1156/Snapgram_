@@ -97,7 +97,7 @@ const ProfilPage = () => {
                     key={item._id}
                       src={firstPostUrl}
                       alt=""
-                      className="w-[330px] rounded-[15px] object-cover h-[315px]"
+                      className="w-[330px] rounded-[15px] object-cover h-[315px] hover:scale-105 duration-300 cursor-pointer"
                     />
                   );
                 } else if (firstPostType === "VIDEO") {
@@ -106,7 +106,7 @@ const ProfilPage = () => {
                     key={item._id}
                       src={firstPostUrl}
                       width={330}
-                      className="w-[330px] rounded-[15px] h-[315px] object-cover"
+                      className="w-[330px] rounded-[15px] h-[315px] object-cover hover:scale-105 duration-300 cursor-pointer"
                     ></video>
                   );
                 }
