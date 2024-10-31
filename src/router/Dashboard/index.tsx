@@ -7,7 +7,7 @@ import People from "../../pages/Dashboard/People";
 import Reels from "../../pages/Dashboard/Reels";
 import Saved from "../../pages/Dashboard/Saved";
 import LeftSidebar from "../../components/LeftSidebar";
-import UsersProfile from "../../pages/Dashboard/UsersProfil";
+import UsersProfile from "../../pages/Dashboard/UsersProfile";
 import ProfilPage from "../../pages/Dashboard/ProfilPage";
 import EditProfile from "../../pages/Dashboard/EditProfile";
 function DashboardRoutes() {
