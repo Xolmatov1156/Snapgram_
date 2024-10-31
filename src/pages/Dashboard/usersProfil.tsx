@@ -14,7 +14,7 @@ function UsersProfile() {
   const [followUser] = useFollowMutation();
 
   const currentUserUsername = window.localStorage.getItem("userData")
-    ? JSON.parse(window.localStorage.getItem("userData") as string).username
+    ? JSON.parse(window.localStorage.getItem("userData") as string)?.username
     : null;
   const handleFollow = (username: string) => {
     followUser(username);

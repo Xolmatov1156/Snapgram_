@@ -20,7 +20,7 @@ const People = () => {
   };
 
   const currentUserUsername = window.localStorage.getItem("userData")
-    ? JSON.parse(window.localStorage.getItem("userData") as string).username
+    ? JSON.parse(window.localStorage.getItem("userData") as string)?.username
     : undefined;
 
   const { data: currentUserInfo } = useGetUserQuery(currentUserUsername);

@@ -16,7 +16,7 @@ function EditProfile() {
   const navigate = useNavigate();
   useEffect(() => {
     if (currentUserData?.photo) {
-      setUserImg(currentUserData.photo);
+      setUserImg(currentUserData?.photo);
     }
   }, [currentUserData]);
 

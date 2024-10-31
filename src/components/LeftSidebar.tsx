@@ -21,7 +21,7 @@ const LeftSidebar = () => {
   const navigate = useNavigate();
 
   const currentUserUsername = window.localStorage.getItem("userData")
-    ? JSON.parse(window.localStorage.getItem("userData") as string).username
+    ? JSON.parse(window.localStorage.getItem("userData") as string)?.username
     : null;
   const { data: currentUserInfo, isLoading } = useGetUserQuery(currentUserUsername);
 

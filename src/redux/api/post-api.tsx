@@ -1,59 +1,56 @@
-import { body } from "framer-motion/client";
 import { api } from "./index";
 
 export const postApi = api.injectEndpoints({
   endpoints: (build) => ({
     like: build.mutation({
-        query: (username) => ({
-          url: `/api/post/${username}/like`,
-          method: "POST",
-        }),
-        invalidatesTags: ["User"],
+      query: (username) => ({
+        url: `/api/post/${username}/like`,
+        method: "POST",
       }),
-      getFeed: build.query({
-        query: () => ({
-          url: "/api/user/feed?limit=3000",
-        }),
-        providesTags: ["User"],
+      invalidatesTags: ["User"],
+    }),
+    getFeed: build.query({
+      query: () => ({
+        url: "/api/user/feed?limit=3000",
       }),
-      createPost: build.mutation({
-        query: (body) => ({
-          url: "/api/post",
-          method: "POST",
-          body,
-        }),
-        invalidatesTags: [{ type: "User" }],
+      providesTags: ["User"],
+    }),
+    createPost: build.mutation({
+      query: (body) => ({
+        url: "/api/post",
+        method: "POST",
+        body,
       }),
-      uploadFiles: build.mutation({
-        query: (body) => ({
-          url: '/api/upload/files',
-          method: "POST",
-          body
-        }),
-        invalidatesTags: [{ type: "User" }]
+      invalidatesTags: [{ type: "User" }],
+    }),
+    uploadFiles: build.mutation({
+      query: (body) => ({
+        url: "/api/upload/files",
+        method: "POST",
+        body,
       }),
-      getAllPostByUser: build.query({
-        query: (username) => ({
-          url: `/api/post/${username}`,
-
-        }),
-        providesTags: ["User"],
+      invalidatesTags: [{ type: "User" }],
+    }),
+    getAllPostByUser: build.query({
+      query: (username) => ({
+        url: `/api/post/${username}`,
       }),
-      comment: build.mutation({
-        query: (username) => ({
-          url: `/api/comment/${username}`,
-        }),
-        invalidatesTags: ["User"],
+      providesTags: ["User"],
+    }),
+    comment: build.mutation({
+      query: (username) => ({
+        url: `/api/comment/${username}`,
       }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
 export const {
-    useGetFeedQuery,
-    useCreatePostMutation,
-    useUploadFilesMutation,
-    useGetAllPostByUserQuery,
-    useLikeMutation,
-    useCommentMutation,
-    
+  useGetFeedQuery,
+  useCreatePostMutation,
+  useUploadFilesMutation,
+  useGetAllPostByUserQuery,
+  useLikeMutation,
+  useCommentMutation,
 } = postApi;

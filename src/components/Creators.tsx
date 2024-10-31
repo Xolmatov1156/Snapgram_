@@ -22,6 +22,9 @@ const Creator = () => {
     ? JSON.parse(window.localStorage.getItem("userData") as string)?.username
     : undefined;
 
+    console.log(currentUserUsername);
+    
+
   const { data: currentUserInfo } = useGetUserQuery(currentUserUsername);
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
